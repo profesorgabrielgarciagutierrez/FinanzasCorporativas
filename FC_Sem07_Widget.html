@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Finanzas Corporativas · Semana 07</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:wght@600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --azul:#003366; --celeste:#87CEEB; --fondo-ej:#E8F4FD; --texto:#1b1b1b; --ok:#0b5d1e; --error:#8a1c1c; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family:"Source Sans 3", "Segoe UI", Arial, sans-serif; font-size:17px; line-height:1.55; color:var(--texto); background:#fff; }
+  h1,h2,h3 { font-family:"Lora", Georgia, serif; color:var(--azul); line-height:1.25; }
+  .cab { background:var(--azul); color:#fff; padding:14px 16px; }
+  .cab h1 { color:#fff; margin:0; font-size:1.35rem; }
+  .cab p { margin:4px 0 0; font-size:.95rem; }
+  .menu { background:var(--celeste); display:flex; overflow-x:auto; gap:4px; padding:6px; white-space:nowrap; }
+  .menu button { border:0; background:transparent; color:#000; padding:9px 12px; font:inherit; cursor:pointer; border-radius:4px; }
+  .menu button[aria-selected="true"] { background:#fff; color:var(--azul); font-weight:700; }
+  .menu button:focus-visible, button:focus-visible, summary:focus-visible { outline:3px solid var(--azul); outline-offset:2px; }
+  main { padding:12px 16px 40px; max-width:880px; margin:0 auto; }
+  section[hidden] { display:none; }
+  .concepto { border-left:5px solid var(--azul); padding:6px 14px; margin:18px 0; }
+  .ejemplo { background:var(--fondo-ej); padding:12px 14px; border-radius:6px; margin:16px 0; }
+  .recuadro { border:1px solid #9bb; border-radius:6px; padding:10px 14px; margin:16px 0; }
+  table { border-collapse:collapse; width:100%; display:block; overflow-x:auto; font-size:.95rem; margin:10px 0 4px; }
+  th, td { border:1px solid #bbb; padding:6px 8px; text-align:left; vertical-align:top; }
+  th { background:#eef4f8; color:var(--azul); }
+  caption { caption-side:top; text-align:left; font-weight:700; color:var(--azul); padding-bottom:4px; }
+  details { border:1px solid #bbb; border-radius:6px; padding:8px 12px; margin:10px 0; }
+  summary { cursor:pointer; font-weight:700; color:var(--azul); }
+  .ejercicio { border-top:1px dashed #999; margin-top:18px; padding-top:10px; }
+  .intento { font-style:italic; }
+  .quiz fieldset { border:1px solid #bbb; border-radius:6px; margin:14px 0; padding:10px 14px; }
+  .quiz legend { font-weight:700; color:var(--azul); padding:0 6px; }
+  .quiz .opciones button { display:block; width:100%; text-align:left; margin:5px 0; padding:9px 12px; border:1px solid #888; border-radius:5px; background:#fff; font:inherit; cursor:pointer; }
+  .quiz .opciones button[aria-pressed="true"] { border:2px solid var(--azul); background:#eef6fb; font-weight:600; }
+  .quiz .fb { margin-top:6px; padding:8px 10px; border-radius:5px; background:#f5f5f5; font-size:.98rem; }
+  .fb.ok { border-left:5px solid var(--ok); }
+  .fb.no { border-left:5px solid var(--error); }
+  .marcador { position:sticky; top:0; background:#fff; border:2px solid var(--azul); border-radius:6px; padding:8px 12px; margin:10px 0; font-weight:600; }
+  .acciones button { margin:4px 6px 4px 0; padding:8px 12px; border:1px solid var(--azul); background:#fff; color:var(--azul); border-radius:5px; font:inherit; cursor:pointer; }
+  .acciones button.primario { background:var(--azul); color:#fff; }
+  .nota { font-size:.92rem; color:#333; }
+  footer { font-size:.9rem; color:#333; margin-top:30px; border-top:1px solid #ccc; padding-top:10px; }
+  @media (max-width: 420px) { body { font-size:16px; } }
+</style>
+</head>
+<body>
+
+<header class="cab">
+  <h1>Finanzas Corporativas · Semana 07</h1>
+  <p>Unidad 2 (cierre) y Unidad 3 · Caso conductor: Panificadora Horno Dorado (empresa de práctica)</p>
+</header>
+
+<nav class="menu" role="tablist" aria-label="Secciones del widget">
+  <button role="tab" id="t-s1" aria-controls="p-s1" aria-selected="true" data-p="s1">Sesión 01</button>
+  <button role="tab" id="t-e1" aria-controls="p-e1" aria-selected="false" data-p="e1">Evaluación 01</button>
+  <button role="tab" id="t-s2" aria-controls="p-s2" aria-selected="false" data-p="s2">Sesión 02</button>
+  <button role="tab" id="t-e2" aria-controls="p-e2" aria-selected="false" data-p="e2">Evaluación 02</button>
+  <button role="tab" id="t-s3" aria-controls="p-s3" aria-selected="false" data-p="s3">Sesión 03</button>
+  <button role="tab" id="t-e3" aria-controls="p-e3" aria-selected="false" data-p="e3">Evaluación 03</button>
+  <button role="tab" id="t-gl" aria-controls="p-gl" aria-selected="false" data-p="gl">Glosario</button>
+  <button role="tab" id="t-bi" aria-controls="p-bi" aria-selected="false" data-p="bi">Bibliografía</button>
+</nav>
+
+<main>
+
+<!-- ============ SESIÓN 01 ============ -->
+<section id="p-s1" role="tabpanel" aria-labelledby="t-s1">
+  <h2>Sesión 01 · Presupuesto de capital: la comparación integral</h2>
+  <p class="nota">Semana 07 · Unidad 2 · Tiempo orientativo: 120 minutos · Trabajo individual.</p>
+
+  <div class="recuadro">
+    <h3>Antes de empezar</h3>
+    <p><strong>Escena.</strong> Lucía Mendoza es la gerente general de la Panificadora Horno Dorado, una empresa de práctica creada con fines didácticos. Evalúa comprar un horno de $12.000,00. Su socio Ramón Ortiz quiere repartir $3.500,00 de utilidades este año.</p>
+    <p><strong>Pregunta:</strong> ¿Recuperará el horno lo que cuesta, y cuánto valor crea si las ventas se cumplen?</p>
+    <p>Al terminar podrás calcular y comparar cinco criterios sobre el mismo proyecto, explicar qué dice cada uno y reconocer por qué un resultado favorable no basta para decidir.</p>
+    <p><strong>Repaso rápido:</strong> flujo de efectivo (dinero que entra o sale de caja, distinto de la utilidad contable); depreciación (reparto contable del costo de un bien, sin salida de dinero cada año); valor presente (lo que vale hoy un monto futuro, descontado a una tasa); tasa de descuento (la tasa que trae flujos futuros a hoy; aquí, 10 %, supuesto didáctico).</p>
+    <p class="intento">Intenta responder antes de leer la guía: si Lucía invierte $12.000,00 hoy y recibe $5.000,00 anuales durante tres años, ¿la inversión devuelve su costo a una tasa del 10 %? Anota tu intuición y revísala al final.</p>
+  </div>
+
+  <h3>1. La libreta del horno</h3>
+  <p>Lucía no decide con un número. Decide con una libreta: año por año, cuánto entra, cuánto sale y cuánto queda. El horno cuesta $12.000,00 hoy. Las ventas adicionales serían de $20.000,00 en el año 1 y $33.000,00 en el año 5. La depreciación lineal es de $2.400,00 al año durante cinco años. El impuesto didáctico es del 22 %. Supón que no hay valor de salvamento ni capital de trabajo adicional.</p>
+
+  <table>
+    <caption>Tabla 1. Libreta del horno (dólares; supuestos didácticos)</caption>
+    <thead><tr><th>Año</th><th>Ventas</th><th>Costos en efectivo</th><th>Depreciación</th><th>Utilidad antes de impuestos</th><th>Impuesto (22 %)</th><th>Utilidad neta</th><th>Flujo del proyecto</th></tr></thead>
+    <tbody>
+      <tr><td>0</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>−$12.000,00</td></tr>
+      <tr><td>1</td><td>$20.000,00</td><td>$22.000,00</td><td>$2.400,00</td><td>−$4.400,00</td><td>$0,00 (sin compensación)</td><td>−$4.400,00</td><td>−$2.000,00</td></tr>
+      <tr><td>2</td><td>$30.000,00</td><td>$24.000,00</td><td>$2.400,00</td><td>$3.600,00</td><td>$792,00</td><td>$2.808,00</td><td>$5.208,00</td></tr>
+      <tr><td>3</td><td>$32.000,00</td><td>$24.500,00</td><td>$2.400,00</td><td>$5.100,00</td><td>$1.122,00</td><td>$3.978,00</td><td>$6.378,00</td></tr>
+      <tr><td>4</td><td>$33.000,00</td><td>$25.000,00</td><td>$2.400,00</td><td>$5.600,00</td><td>$1.232,00</td><td>$4.368,00</td><td>$6.768,00</td></tr>
+      <tr><td>5</td><td>$33.000,00</td><td>$25.000,00</td><td>$2.400,00</td><td>$5.600,00</td><td>$1.232,00</td><td>$4.368,00</td><td>$6.768,00</td></tr>
+    </tbody>
+  </table>
+
+  <div class="ejemplo">
+    <p><strong>¿Por qué el flujo del año 2 es $5.208,00 si la utilidad neta es $2.808,00?</strong> Restamos la depreciación para calcular la utilidad, porque es un gasto contable. Pero en el año 2 no salió ese dinero de caja: el horno ya se pagó en el año 0. Por eso la sumamos otra vez: $2.808,00 + $2.400,00 = $5.208,00. Lo que sí reduce la caja es el impuesto, que ya descontamos.</p>
+    <p class="intento">Detente aquí: calcula el flujo del año 4. Debe darte $6.768,00. Si no te da, revisa si sumaste la depreciación.</p>
+  </div>
+
+  <h3>2. Los cinco criterios sobre la misma libreta</h3>
+  <p><strong>Valor presente neto (VPN).</strong> Responde: ¿cuánto valor de hoy crea el proyecto? Se trae cada flujo futuro a hoy con la tasa del 10 % y se resta la inversión. En otros textos aparece como VAN o NPV.</p>
+
+  <table>
+    <caption>Tabla 2. Flujos traídos a hoy con una tasa del 10 % y acumulado descontado</caption>
+    <thead><tr><th>Año</th><th>Flujo</th><th>Factor 1/1,10^t</th><th>Valor presente</th><th>Acumulado descontado</th></tr></thead>
+    <tbody>
+      <tr><td>0</td><td>−$12.000,00</td><td>1,000000</td><td>−$12.000,00</td><td>−$12.000,00</td></tr>
+      <tr><td>1</td><td>−$2.000,00</td><td>0,909091</td><td>−$1.818,18</td><td>−$13.818,18</td></tr>
+      <tr><td>2</td><td>$5.208,00</td><td>0,826446</td><td>$4.304,13</td><td>−$9.514,05</td></tr>
+      <tr><td>3</td><td>$6.378,00</td><td>0,751315</td><td>$4.791,89</td><td>−$4.722,16</td></tr>
+      <tr><td>4</td><td>$6.768,00</td><td>0,683013</td><td>$4.622,64</td><td>−$99,52</td></tr>
+      <tr><td>5</td><td>$6.768,00</td><td>0,620921</td><td>$4.202,40</td><td>$4.102,87</td></tr>
+    </tbody>
+  </table>
+  <p>La suma de los valores presentes de los años 1 a 5 es $16.102,87. Restamos la inversión de $12.000,00: VPN = $4.102,87. La última celda difiere en un centavo por redondeo.</p>
+
+  <p><strong>Tasa interna de retorno (TIR).</strong> Es la tasa que hace el VPN igual a cero. Aquí es 18,98 %. Como supera el 10 %, el VPN a esa tasa es positivo.</p>
+  <p><strong>Índice de rentabilidad (IP).</strong> $16.102,87 ÷ $12.000,00 = 1,34. Por cada dólar invertido, el proyecto devuelve, en valor de hoy, $1,34.</p>
+  <p><strong>Recuperación simple.</strong> Al cierre del año 3 faltan $2.414,00. En el año 4 entran $6.768,00: 3 + 2.414 ÷ 6.768 = 3,36 años, es decir, unos 3 años y 4 meses.</p>
+  <p><strong>Recuperación descontada.</strong> Al cierre del año 4 faltan $99,52 en valor presente; el año 5 aporta $4.202,40: 4 + 99,52 ÷ 4.202,40 = 4,02 años. Tarda más porque descontar reduce el peso de los flujos lejanos.</p>
+  <p><strong>Rendimiento contable promedio.</strong> Utilidad neta promedio: $11.122,00 ÷ 5 = $2.224,40. Con inversión promedio de $6.000,00 da 37,07 %; con inversión inicial de $12.000,00 da 18,54 %. Declara siempre la base.</p>
+
+  <table>
+    <caption>Tabla 3. Resumen de los criterios del horno</caption>
+    <thead><tr><th>Criterio</th><th>Resultado</th><th>Qué responde</th></tr></thead>
+    <tbody>
+      <tr><td>VPN al 10 %</td><td>$4.102,87</td><td>¿Cuánto valor de hoy se crea?</td></tr>
+      <tr><td>TIR</td><td>18,98 %</td><td>¿Qué rentabilidad anual tiene el proyecto?</td></tr>
+      <tr><td>Índice de rentabilidad</td><td>1,34</td><td>¿Cuánto valor de hoy por dólar invertido?</td></tr>
+      <tr><td>Recuperación simple</td><td>3,36 años</td><td>¿Cuándo vuelve el dinero, sin descontar?</td></tr>
+      <tr><td>Recuperación descontada</td><td>4,02 años</td><td>¿Cuándo vuelve el dinero, descontado al 10 %?</td></tr>
+      <tr><td>Rendimiento contable promedio</td><td>37,07 % (inversión promedio) / 18,54 % (inversión inicial)</td><td>¿Cuánta utilidad contable produce cada dólar invertido?</td></tr>
+    </tbody>
+  </table>
+
+  <h3>3. ¿Y si las ventas fallan?</h3>
+  <p>Las cifras anteriores suponen que las ventas se cumplen. Si caen un 10 % cada año, con costos iguales, el VPN baja a −$4.880,81. Si suben un 10 %, sube a $13.086,54. El punto de equilibrio financiero está en una caída de ventas de 4,57 %: con una caída de 5 %, el VPN es −$388,97.</p>
+
+  <table>
+    <caption>Tabla 4. Sensibilidad del VPN a las ventas (tasa del 10 %)</caption>
+    <thead><tr><th>Cambio en las ventas</th><th>VPN</th></tr></thead>
+    <tbody>
+      <tr><td>Base</td><td>$4.102,87</td></tr>
+      <tr><td>−10 %</td><td>−$4.880,81</td></tr>
+      <tr><td>+10 %</td><td>$13.086,54</td></tr>
+      <tr><td>−5 %</td><td>−$388,97</td></tr>
+    </tbody>
+  </table>
+
+  <div class="recuadro">
+    <h3>Pensamiento crítico: ¿basta con que el VPN sea positivo?</h3>
+    <p>Un estudiante dice: «El VPN es positivo y la TIR supera el 10 %. Hay que comprar el horno». Pista 1: ¿de qué supuestos depende el VPN? Pista 2: ¿qué pasa si las ventas son un poco menores? Pista 3: ¿qué no dice el VPN sobre el financiamiento?</p>
+    <details>
+      <summary>Respuesta guía</summary>
+      <p>El VPN y la TIR coinciden en que el proyecto crea valor con los supuestos dados. Eso es información valiosa, pero no una orden. El VPN depende de ventas, costos e impuesto, que son supuestos didácticos. Con una caída de ventas de 5 %, el VPN ya es negativo. Además, los criterios no dicen cómo se financia el horno ni si habrá clientes para el pan adicional. Para recomendar falta confirmar la demanda, el precio, el calendario de cobros y la forma de financiamiento.</p>
+    </details>
+  </div>
+
+  <h3>Ejercicios guiados</h3>
+  <div class="ejercicio">
+    <h4>Ejercicio 1 · Valor presente del año 1 (10 minutos)</h4>
+    <p>Calcula el valor presente del flujo del año 1, −$2.000,00, con una tasa del 10 %.</p>
+    <details><summary>Ayuda y solución</summary>
+      <p>Divide entre 1,10 una vez: −$2.000,00 ÷ 1,10 = −$1.818,18. Comprobación: −$1.818,18 × 1,10 = −$2.000,00. El flujo sigue siendo una salida.</p>
+    </details>
+  </div>
+  <div class="ejercicio">
+    <h4>Ejercicio 2 · Recuperación simple (15 minutos)</h4>
+    <p>Con la Tabla 1, calcula cuánto tarda el horno en recuperar los $12.000,00 sin descontar.</p>
+    <details><summary>Ayuda y solución</summary>
+      <p>Después del año 3 el acumulado es −$2.414,00. En el año 4 entran $6.768,00: 3 + 2.414 ÷ 6.768 = 3,36 años. Comprobación: 0,36 × 12 ≈ 4,3 meses.</p>
+    </details>
+  </div>
+  <div class="ejercicio">
+    <h4>Ejercicio 3 · Recuperación descontada (15 minutos)</h4>
+    <p>Con la Tabla 2, calcula la recuperación descontada al 10 %.</p>
+    <details><summary>Ayuda y solución</summary>
+      <p>Al cierre del año 4 el acumulado es −$99,52; el año 5 aporta $4.202,40. 4 + 99,52 ÷ 4.202,40 = 4,02 años.</p>
+    </details>
+  </div>
+  <div class="ejercicio">
+    <h4>Ejercicio 4 · Interpretar la sensibilidad (20 minutos)</h4>
+    <p>Lucía dice: «Si las ventas caen 5 %, el proyecto sigue siendo bueno, porque la TIR todavía supera el 10 %». Evalúa la frase con la Tabla 4.</p>
+    <details><summary>Ayuda y solución</summary>
+      <p>Con una caída de 5 %, el VPN es −$388,97: no crea valor a la tasa del 10 %. La TIR se calculó con los flujos del caso base; con la caída cambia y no puede usarse como argumento.</p>
+    </details>
+  </div>
+  <div class="ejercicio">
+    <h4>Ejercicio 5 · Conclusión condicionada (30 minutos)</h4>
+    <p>Escribe un párrafo con tu recomendación a Lucía: incluye un criterio, una condición y un dato que falte.</p>
+    <details><summary>Respuesta guía</summary>
+      <p>Con los supuestos del caso, el VPN es $4.102,87, la TIR 18,98 % y el IP 1,34: el horno crea valor. La conclusión depende de que las ventas se cumplan; con una caída de 5 % el VPN es negativo. Antes de recomendar la compra falta confirmar la demanda, el precio y la forma de financiamiento.</p>
+    </details>
+  </div>
+  <p class="nota">Evaluación 01: 15 preguntas de práctica en la pestaña correspondiente. Son práctica, no nota oficial.</p>
+</section>
+
+<!-- ============ EVALUACIÓN 01 ============ -->
+<section id="p-e1" role="tabpanel" aria-labelledby="t-e1" hidden>
+  <h2>Evaluación 01 · Práctica de la Sesión 01</h2>
+  <p class="nota">Son práctica, no nota oficial. Reintentar no demuestra por sí solo que transfieres lo aprendido.</p>
+  <div class="marcador" id="mk-e1" aria-live="polite">Pendientes: 15 · Aciertos: 0 · Progreso: 0 %</div>
+  <div class="quiz" id="quiz-e1"></div>
+  <div class="acciones">
+    <button class="primario" data-acc="ver" data-q="e1">Ver resultado</button>
+    <button data-acc="reiniciar" data-q="e1">Reiniciar cuestionario</button>
+  </div>
+  <div id="res-e1" aria-live="polite"></div>
+</section>
+
+<!-- ============ SESIÓN 02 ============ -->
+<section id="p-s2" role="tabpanel" aria-labelledby="t-s2" hidden>
+  <h2>Sesión 02 · Mercado de capitales, rendimiento y registro histórico</h2>
+  <p class="nota">Semana 07 · Unidad 3 · Tiempo orientativo: 120 minutos · Trabajo individual.</p>
+
+  <div class="recuadro">
+    <h3>Antes de empezar</h3>
+    <p><strong>Escena.</strong> Andrea es profesora. Tiene $1.000,00 ahorrados y duda entre una cuenta de ahorro y acciones de empresas grandes. Su hermano le dice que las acciones «siempre suben a largo plazo». Quiere comprobarlo con datos antes de decidir.</p>
+    <p><strong>Pregunta:</strong> ¿Qué nos enseñan los rendimientos pasados de las acciones y de los bonos, y qué no nos pueden enseñar?</p>
+    <p class="intento">Intenta responder: si una acción sube de $50,00 a $55,00 en un año y paga $2,00 de dividendo, ¿cuánto ganó su dueño, en porcentaje, sobre lo invertido?</p>
+  </div>
+
+  <h3>1. ¿Qué es el mercado de capitales?</h3>
+  <p>El mercado de capitales es el espacio, físico o electrónico, donde se negocian títulos de largo plazo, como acciones y bonos. Conviene distinguir dos cosas: cuando la empresa emite un título, recibe dinero para su operación; cuando un inversionista vende a otro una acción ya existente, el dinero pasa entre inversionistas y la empresa no lo recibe en esa operación.</p>
+  <p>El <strong>S&amp;P 500</strong> es un índice que agrupa a 500 grandes empresas estadounidenses. Su rendimiento describe el conjunto, no una sola empresa.</p>
+
+  <h3>2. El rendimiento total</h3>
+  <p>Andrea compra una acción a $50,00, la vende a $55,00 y recibe $2,00 de dividendo. Su ganancia es $5,00 de precio más $2,00 de dividendo, es decir, $7,00. Sobre la inversión inicial, el rendimiento es $7,00 ÷ $50,00 = 14 %.</p>
+
+  <table>
+    <caption>Tabla 5. Ejemplo hipotético de rendimiento total (datos ilustrativos)</caption>
+    <thead><tr><th>Concepto</th><th>Monto</th><th>Cálculo</th></tr></thead>
+    <tbody>
+      <tr><td>Precio inicial</td><td>$50,00</td><td>Inversión al inicio</td></tr>
+      <tr><td>Precio final</td><td>$55,00</td><td>Venta al final del año</td></tr>
+      <tr><td>Ganancia de precio</td><td>$5,00</td><td>$55,00 − $50,00</td></tr>
+      <tr><td>Dividendo</td><td>$2,00</td><td>Recibido durante el año</td></tr>
+      <tr><td>Ganancia total</td><td>$7,00</td><td>$5,00 + $2,00</td></tr>
+      <tr><td>Rendimiento total</td><td>14 %</td><td>$7,00 ÷ $50,00</td></tr>
+    </tbody>
+  </table>
+  <p class="intento">Detente aquí: calcula el rendimiento si el dividendo hubiera sido $0,00. Debes obtener 10 %.</p>
+
+  <h3>3. El registro histórico</h3>
+  <p>Un <strong>registro histórico</strong> es una serie de rendimientos observados, año por año, con fecha, unidad y fuente. Describe lo que pasó; no promete lo que pasará. Andrea consulta la tabla de Aswath Damodaran (NYU Stern), con rendimientos del S&amp;P 500 con dividendos, de los T-bills a 3 meses y de los T-bonds a 10 años desde 1928.</p>
+
+  <table>
+    <caption>Tabla 6. Extracto del registro histórico de Damodaran (1928–1929)</caption>
+    <thead><tr><th>Año</th><th>S&amp;P 500 con dividendos</th><th>T-bills 3 meses</th><th>T-bonds 10 años</th><th>Prima de acciones frente a T-bills</th><th>Valor de $100 en acciones al cierre del año</th></tr></thead>
+    <tbody>
+      <tr><td>1928</td><td>43,81 %</td><td>3,08 %</td><td>0,84 %</td><td>40,73 %</td><td>$143,81</td></tr>
+      <tr><td>1929</td><td>−8,30 %</td><td>3,16 %</td><td>4,20 %</td><td>−11,46 %</td><td>$131,88</td></tr>
+    </tbody>
+  </table>
+  <p class="nota">Fuente: Damodaran, A., Historical Returns on Stocks, Bonds and Bills (NYU Stern, datos hasta 2024).</p>
+  <p>En 1929 las acciones cayeron 8,30 %: $143,81 se convierten en $131,88. Dos años después, $100 invertidos al inicio de 1928 valen $131,88. El dinero creció, pero el camino no fue parejo.</p>
+
+  <h3>4. Lo que el registro permite y lo que no</h3>
+  <p>El registro muestra que el rendimiento cambia mucho de un año a otro. No asegura que el patrón se repita, no dice cuánto rendirá una acción concreta y exige usar la misma unidad y la misma fuente al comparar. Con dos años no se concluye que las acciones «siempre suben». Para evaluar esa idea hacen falta una serie larga y verificada, el horizonte de la inversión y la capacidad de soportar caídas.</p>
+
+  <h3>Ejercicios guiados</h3>
+  <div class="ejercicio">
+    <h4>Ejercicio 1 · Rendimiento total (10 minutos)</h4>
+    <p>Compras una acción a $80,00, la vendes a $76,00 y recibes $4,00 de dividendo. Calcula el rendimiento total.</p>
+    <details><summary>Ayuda y solución</summary>
+      <p>Ganancia de precio: −$4,00. Dividendo: +$4,00. Ganancia total: $0,00. Rendimiento: 0,00 %. Un dividendo puede compensar una caída de precio.</p>
+    </details>
+  </div>
+  <div class="ejercicio">
+    <h4>Ejercicio 2 · Prima de riesgo (10 minutos)</h4>
+    <p>Con la Tabla 6, calcula la prima de acciones frente a T-bills en 1928 y en 1929.</p>
+    <details><summary>Ayuda y solución</summary>
+      <p>1928: 43,81 % − 3,08 % = 40,73 %. 1929: −8,30 % − 3,16 % = −11,46 %. Comprobación: 40,73 % + 3,08 % = 43,81 %.</p>
+    </details>
+  </div>
+  <div class="ejercicio">
+    <h4>Ejercicio 3 · Valor de $100 (15 minutos)</h4>
+    <p>Con la Tabla 6, ¿cuánto valen al cierre de 1929 los $100 invertidos en acciones al inicio de 1928?</p>
+    <details><summary>Ayuda y solución</summary>
+      <p>$143,81 × 0,917 = $131,88. Cada año el rendimiento se aplica sobre lo que ya tienes.</p>
+    </details>
+  </div>
+  <div class="ejercicio">
+    <h4>Ejercicio 4 · Bono de práctica (20 minutos)</h4>
+    <p>Compras un bono de práctica a $1.000,00, recibes $60,00 de intereses y lo vendes a $1.010,00. ¿Cuál es el rendimiento total y de dónde viene?</p>
+    <details><summary>Ayuda y solución</summary>
+      <p>Precio: $10,00 (1 %). Intereses: $60,00 (6 %). Total: $70,00, es decir, 7 %. Los intereses son dinero adicional que pactan la empresa y el inversionista; no reducen el capital que se devuelve al vencimiento, y si el precio del bono baja, esa pérdida se suma al resultado.</p>
+    </details>
+  </div>
+  <div class="ejercicio">
+    <h4>Ejercicio 5 · Qué no puede concluir el registro (20 minutos)</h4>
+    <p>Un socio propone decidir con el año 1928 solamente, porque las acciones rindieron 43,81 %. Evalúa la propuesta.</p>
+    <details><summary>Respuesta guía</summary>
+      <p>Un año aislado no sirve: en 1929 las acciones cayeron 8,30 %. Faltan una serie más larga y verificada, el horizonte y el riesgo que se puede soportar. La conclusión depende de que esas condiciones se cumplan.</p>
+    </details>
+  </div>
+  <p class="nota">Evaluación 02: 15 preguntas de práctica en la pestaña correspondiente.</p>
+</section>
+
+<!-- ============ EVALUACIÓN 02 ============ -->
+<section id="p-e2" role="tabpanel" aria-labelledby="t-e2" hidden>
+  <h2>Evaluación 02 · Práctica de la Sesión 02</h2>
+  <p class="nota">Son práctica, no nota oficial. Reintentar no demuestra por sí solo que transfieres lo aprendido.</p>
+  <div class="marcador" id="mk-e2" aria-live="polite">Pendientes: 15 · Aciertos: 0 · Progreso: 0 %</div>
+  <div class="quiz" id="quiz-e2"></div>
+  <div class="acciones">
+    <button class="primario" data-acc="ver" data-q="e2">Ver resultado</button>
+    <button data-acc="reiniciar" data-q="e2">Reiniciar cuestionario</button>
+  </div>
+  <div id="res-e2" aria-live="polite"></div>
+</section>
+
+<!-- ============ SESIÓN 03 ============ -->
+<section id="p-s3" role="tabpanel" aria-labelledby="t-s3" hidden>
+  <h2>Sesión 03 · Rendimientos promedio: aritmético y geométrico</h2>
+  <p class="nota">Semana 07 · Unidad 3 · Tiempo orientativo: 120 minutos · Trabajo individual.</p>
+
+  <div class="recuadro">
+    <h3>Antes de empezar</h3>
+    <p><strong>Escena.</strong> Carmen invirtió $100,00 durante cuatro años en un fondo con años buenos y malos. Sumó sus cuatro rendimientos, dividió entre cuatro y obtuvo un promedio que la hizo sentir confiada. Pero su saldo no creció tanto como ese promedio prometía.</p>
+    <p><strong>Pregunta:</strong> ¿Qué promedio describe mejor cuánto crece realmente el dinero de un inversionista?</p>
+    <p class="intento">Intenta responder: si una inversión sube 50 % un año y baja 50 % al siguiente, ¿cuál es su promedio anual? ¿Terminará el dinero igual que al inicio?</p>
+  </div>
+
+  <h3>1. Dos promedios, dos preguntas</h3>
+  <p>El <strong>promedio aritmético</strong> suma los rendimientos y divide entre el número de años: describe el rendimiento típico de un año. El <strong>promedio geométrico</strong> es el rendimiento constante que, compuesto cada año, deja el mismo valor final que la serie real: describe el crecimiento compuesto del dinero.</p>
+  <div class="ejemplo">
+    <p>Fórmula del geométrico, con rendimientos R₁ a Rₜ: [(1 + R₁) × … × (1 + Rₜ)]^(1/t) − 1. En palabras: multiplicas los factores de crecimiento de cada año, sacas la raíz de orden t y restas 1.</p>
+    <p class="intento">Pregunta: ¿por qué no basta con sumar y dividir? Porque cada año el resultado afecta la base del siguiente.</p>
+  </div>
+
+  <h3>2. Con datos reales: 1928 y 1929</h3>
+  <table>
+    <caption>Tabla 7. Promedios de los rendimientos de acciones (S&amp;P 500 con dividendos), 1928–1929</caption>
+    <thead><tr><th>Cálculo</th><th>Operación</th><th>Resultado</th></tr></thead>
+    <tbody>
+      <tr><td>Promedio aritmético</td><td>(43,81 % + (−8,30 %)) ÷ 2 = 35,51 % ÷ 2</td><td>17,76 % (17,755 %)</td></tr>
+      <tr><td>Factores de crecimiento</td><td>1,4381 × 0,9170</td><td>1,3187</td></tr>
+      <tr><td>Promedio geométrico</td><td>1,3187^(1/2) − 1</td><td>14,84 %</td></tr>
+    </tbody>
+  </table>
+  <p>Si $100 crecieran 17,76 % cada año durante dos años, tendrían $138,67. El registro dice $131,88. El geométrico, 14,84 %, reproduce ese valor: $100 × 1,1484 × 1,1484 = $131,88.</p>
+  <p class="intento">Detente aquí: calcula $100 × 1,1484 × 1,1484 y comprueba que obtienes $131,88.</p>
+  <p>El geométrico es menor que el aritmético porque la serie varía: la caída de un año pesa sobre la base que la subida siguiente debe recuperar.</p>
+
+  <h3>3. Un ejemplo hipotético</h3>
+  <p>Serie hipotética de cuatro años: +20 %, −10 %, +30 % y −20 %. No es un dato real; sirve para practicar.</p>
+  <table>
+    <caption>Tabla 8. Serie hipotética de cuatro años (datos ilustrativos)</caption>
+    <thead><tr><th>Año</th><th>Rendimiento</th><th>Factor de crecimiento</th><th>Valor acumulado de $100</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>+20,00 %</td><td>1,20</td><td>$120,00</td></tr>
+      <tr><td>2</td><td>−10,00 %</td><td>0,90</td><td>$108,00</td></tr>
+      <tr><td>3</td><td>+30,00 %</td><td>1,30</td><td>$140,40</td></tr>
+      <tr><td>4</td><td>−20,00 %</td><td>0,80</td><td>$112,32</td></tr>
+    </tbody>
+  </table>
+  <p>Promedio aritmético: 5,00 %. Promedio geométrico: 1,20 × 0,90 × 1,30 × 0,80 = 1,1232; raíz cuarta ≈ 1,02947; promedio geométrico 2,95 %. Comprobación: $100 × 1,02947⁴ ≈ $112,32.</p>
+
+  <h3>4. Un caso que sorprende: −50 % y +50 %</h3>
+  <p>Una inversión cae 50 % y luego sube 50 %. El aritmético da 0 %, pero $100 quedan en $50,00 y luego en $75,00: se pierde $25,00. El geométrico es √(0,50 × 1,50) − 1 = −13,40 % anual. Para medir el crecimiento de un capital que se reinvierte, el geométrico es el promedio adecuado.</p>
+
+  <h3>5. ¿Cuál promedio usar?</h3>
+  <p>Para el rendimiento típico de un año, el aritmético. Para el crecimiento compuesto real, el geométrico. Para proyectar un capital con reinversión, el geométrico, porque el aritmético tiende a sobreestimar cuando la serie varía. Un promedio histórico no garantiza nada: para decidir, hacen falta riesgo, horizonte y una serie verificada.</p>
+
+  <h3>Ejercicios guiados</h3>
+  <div class="ejercicio">
+    <h4>Ejercicio 1 · Promedio aritmético (10 minutos)</h4>
+    <p>Con la Tabla 6, calcula el promedio aritmético de las acciones en 1928 y 1929.</p>
+    <details><summary>Ayuda y solución</summary>
+      <p>(43,81 − 8,30) ÷ 2 = 17,755 %, es decir, 17,76 % con dos decimales.</p>
+    </details>
+  </div>
+  <div class="ejercicio">
+    <h4>Ejercicio 2 · Promedio geométrico (15 minutos)</h4>
+    <p>Con la Tabla 6, calcula el promedio geométrico de 1928 y 1929.</p>
+    <details><summary>Ayuda y solución</summary>
+      <p>1,4381 × 0,9170 = 1,3187; √1,3187 = 1,1484; promedio geométrico 14,84 %. Comprobación: $100 × 1,1484² = $131,88.</p>
+    </details>
+  </div>
+  <div class="ejercicio">
+    <h4>Ejercicio 3 · Serie hipotética (20 minutos)</h4>
+    <p>Calcula los promedios aritmético y geométrico de +20 %, −10 %, +30 % y −20 %.</p>
+    <details><summary>Ayuda y solución</summary>
+      <p>Aritmético: 5,00 %. Geométrico: raíz cuarta de 1,1232 = 1,02947; promedio geométrico 2,95 %.</p>
+    </details>
+  </div>
+  <div class="ejercicio">
+    <h4>Ejercicio 4 · Prueba de −50 % y +50 % (15 minutos)</h4>
+    <p>Calcula el promedio aritmético, el geométrico y el saldo final de $100,00 en esa serie.</p>
+    <details><summary>Ayuda y solución</summary>
+      <p>Aritmético: 0,00 %. Saldo: $100,00 × 0,50 × 1,50 = $75,00. Geométrico: √0,75 − 1 = −13,40 % anual. Un promedio que dice cero no garantiza que el dinero no cambió.</p>
+    </details>
+  </div>
+  <div class="ejercicio">
+    <h4>Ejercicio 5 · Conclusión con criterio (20 minutos)</h4>
+    <p>Carmen quiere saber si su fondo, con promedio aritmético de 10 %, le dará 10 % al año en el futuro. Responde brevemente.</p>
+    <details><summary>Respuesta guía</summary>
+      <p>El promedio de 10 % describe un año típico del pasado, no garantiza el crecimiento del dinero. El geométrico será igual o menor que 10 %, y más bajo cuanto mayor sea la variación. Para decidir, Carmen necesita el geométrico de su serie real, su horizonte y el riesgo que puede soportar.</p>
+    </details>
+  </div>
+  <p class="nota">Evaluación 03: 15 preguntas de práctica en la pestaña correspondiente.</p>
+</section>
+
+<!-- ============ EVALUACIÓN 03 ============ -->
+<section id="p-e3" role="tabpanel" aria-labelledby="t-e3" hidden>
+  <h2>Evaluación 03 · Práctica de la Sesión 03</h2>
+  <p class="nota">Son práctica, no nota oficial. Reintentar no demuestra por sí solo que transfieres lo aprendido.</p>
+  <div class="marcador" id="mk-e3" aria-live="polite">Pendientes: 15 · Aciertos: 0 · Progreso: 0 %</div>
+  <div class="quiz" id="quiz-e3"></div>
+  <div class="acciones">
+    <button class="primario" data-acc="ver" data-q="e3">Ver resultado</button>
+    <button data-acc="reiniciar" data-q="e3">Reiniciar cuestionario</button>
+  </div>
+  <div id="res-e3" aria-live="polite"></div>
+</section>
+
+<!-- ============ GLOSARIO ============ -->
+<section id="p-gl" role="tabpanel" aria-labelledby="t-gl" hidden>
+  <h2>Glosario de la semana</h2>
+  <p class="nota">Definiciones usadas en las sesiones. Las definiciones de las Unidades 2 y 3 se apoyan en las fuentes indicadas en la bitácora; las marcadas como pendientes no se usan en preguntas evaluables hasta confirmarlas.</p>
+  <dl>
+    <dt><strong>Flujo de efectivo</strong></dt><dd>Dinero que entra o sale de caja en un periodo. Distinto de la utilidad contable.</dd>
+    <dt><strong>Depreciación</strong></dt><dd>Reparto contable del costo de un bien entre los años de uso. No es salida de caja en cada año.</dd>
+    <dt><strong>Valor presente neto (VPN; también VAN o NPV)</strong></dt><dd>Valor de hoy de los flujos futuros menos la inversión, a una tasa de descuento.</dd>
+    <dt><strong>Tasa interna de retorno (TIR; también IRR)</strong></dt><dd>Tasa que hace el VPN igual a cero.</dd>
+    <dt><strong>Índice de rentabilidad (IP)</strong></dt><dd>Valor de hoy de los flujos futuros dividido entre la inversión.</dd>
+    <dt><strong>Mercado de capitales</strong></dt><dd>Espacio donde se negocian títulos de largo plazo, como acciones y bonos.</dd>
+    <dt><strong>Rendimiento total</strong></dt><dd>Ganancia de precio más dividendos (o intereses), dividida entre el precio inicial.</dd>
+    <dt><strong>Prima por riesgo</strong></dt><dd>Diferencia entre el rendimiento de una inversión arriesgada y el de una segura en el mismo periodo.</dd>
+    <dt><strong>Promedio aritmético</strong></dt><dd>Suma de rendimientos dividida entre el número de periodos.</dd>
+    <dt><strong>Promedio geométrico</strong></dt><dd>Rendimiento constante que, compuesto, produce el mismo valor final que la serie real.</dd>
+  </dl>
+</section>
+
+<!-- ============ BIBLIOGRAFÍA ============ -->
+<section id="p-bi" role="tabpanel" aria-labelledby="t-bi" hidden>
+  <h2>Bibliografía</h2>
+  <ul>
+    <li>Damodaran, A. (2024, enero). <em>Historical returns on stocks, bonds and bills: 1928–2023</em> [conjunto de datos]. NYU Stern School of Business. https://pages.stern.nyu.edu/~adamodar/New_Home_Page/datafile/histretSP.html</li>
+    <li>Wachter, J. <em>Handout 1: Geometric average versus arithmetic average</em>. Corporate Finance, Wharton School, University of Pennsylvania. https://finance.wharton.upenn.edu/~jwachter/fnce100/h01.pdf</li>
+  </ul>
+  <p class="nota">Se recomienda verificar cada referencia en Google Scholar (scholar.google.com) o en el repositorio institucional antes de citar en trabajos académicos. Pendiente: referencia de Ross, Westerfield y Jordan (2010), edición y capítulos por confirmar en el ejemplar.</p>
+</section>
+
+</main>
+
+<footer>
+  <p>Semana 07 · Finanzas Corporativas · Código 091201723 · Práctica formativa; no constituye nota oficial.</p>
+</footer>
+
+<script>
+/* ============ BANCO DE PREGUNTAS (datos) ============ */
+const BANCO = {
+  e1: [
+    {t:"[Teórica] ¿Qué mide el valor presente neto (VPN) del horno?", o:["La utilidad contable acumulada de los cinco años.","La tasa de interés que cobra el banco por el préstamo.","El valor de hoy de los flujos futuros menos la inversión, con la tasa de descuento.","El dinero que queda en caja al final del año 5."], c:2, f:["Incorrecto. La utilidad es contable y no descuenta flujos; el VPN usa flujos de caja traídos a hoy.","Incorrecto. Esa es una tasa de crédito; el VPN usa la tasa de descuento para comparar.","CORRECTO. Con el 10 % el VPN es $4.102,87: el valor de hoy de los flujos ($16.102,87) menos los $12.000,00 invertidos.","Incorrecto. La caja final ignora el valor del dinero en el tiempo; por eso el VPN no se calcula así."], g:"El VPN responde cuánto valor de hoy crea el proyecto a la tasa exigida. Si es positivo, el proyecto gana más que esa tasa."},
+    {t:"[Teórica] ¿Qué indica una recuperación simple de 3,36 años?", o:["El horno se paga antes de tres años.","Tarda unos 3 años y 4 meses en recuperar los $12.000,00, sin descontar.","El horno rinde 3,36 % anual.","Los flujos valen 3,36 dólares hoy."], c:1, f:["Incorrecto. Al cierre del año 3 el acumulado todavía es −$2.414,00.","CORRECTO. 0,36 años × 12 meses ≈ 4 meses.","Incorrecto. Es un tiempo, no una tasa; la tasa de rentabilidad es la TIR.","Incorrecto. La recuperación simple es un periodo de tiempo y no descuenta flujos."], g:"La recuperación simple indica cuándo vuelve el dinero, sin pensar en el costo de esperar."},
+    {t:"[Teórica] ¿Por qué la recuperación descontada (4,02 años) es mayor que la simple (3,36 años)?", o:["Porque descontar a 10 % reduce el peso de los flujos lejanos, que tardan más en igualar la inversión.","Porque el impuesto de 22 % se paga solo después del año 4.","Porque la depreciación se suma dos veces.","Porque la recuperación descontada siempre duplica a la simple."], c:0, f:["CORRECTO. Los flujos lejanos valen menos hoy, así que el acumulado descontado tarda más.","Incorrecto. El impuesto ya está incluido en el flujo de cada año.","Incorrecto. La depreciación se suma una vez para revertir el gasto contable que restó para calcular la utilidad.","Incorrecto. No hay una regla de duplicación; la diferencia depende de la tasa y de los flujos."], g:"Descontar cambia el tiempo de recuperación porque cada flujo futuro pesa menos."},
+    {t:"[Análisis] El flujo del año 1 es −$2.000,00. ¿Cuánto vale hoy con una tasa del 10 %?", o:["−$2.000,00","−$2.200,00","−$1.500,00","−$1.818,18"], c:3, f:["Incorrecto. Ese es el flujo sin descontar.","Incorrecto. Eso sería multiplicar por 1,10, no dividir entre 1,10.","Incorrecto. Ese valor no corresponde a ningún factor del 10 %.","CORRECTO. −$2.000,00 ÷ 1,10 = −$1.818,18."], g:"Un flujo que llega dentro de un año se divide entre 1,10 para traerlo a hoy."},
+    {t:"[Análisis] Al cierre del año 4, el acumulado descontado es −$99,52. ¿Qué significa?", o:["El proyecto ya recuperó la inversión descontada.","Faltan $99,52 de valor presente, que se cubren con el flujo del año 5.","El VPN del proyecto es −$99,52.","El año 5 no tiene flujo."], c:1, f:["Incorrecto. Un acumulado negativo indica que todavía falta recuperar la inversión.","CORRECTO. El año 5 aporta $4.202,40 en valor presente, más que lo que falta.","Incorrecto. El VPN es +$4.102,87; el −$99,52 es un acumulado parcial.","Incorrecto. El año 5 tiene un flujo de $6.768,00."], g:"El acumulado descontado muestra cuánto falta para recuperar la inversión en valor de hoy."},
+    {t:"[Análisis] El rendimiento contable promedio de 37,07 % se obtiene como:", o:["Utilidad neta promedio ($2.224,40) ÷ inversión promedio ($6.000,00).","Utilidad neta promedio ÷ inversión inicial ($12.000,00).","Flujo promedio ÷ costo de ventas.","La TIR dividida entre 2."], c:0, f:["CORRECTO. 2.224,40 ÷ 6.000 = 37,07 %.","Incorrecto. Esa división da 18,54 %, con otra base de inversión.","Incorrecto. La medida usa utilidad neta, no flujos ni costo de ventas.","Incorrecto. La TIR es una tasa calculada con los flujos; no se obtiene de esa división."], g:"Este criterio usa utilidad contable, y la base de la inversión debe declararse."},
+    {t:"[Análisis] Un estudiante dice: «Como el VPN es positivo y la TIR supera el 10 %, hay que aprobar el horno sin más». ¿Qué respuesta es la más adecuada?", o:["Sí: con VPN positivo el proyecto debe aprobarse siempre.","No: la TIR nunca sirve con flujos negativos.","Depende: el resultado depende de supuestos de ventas, costos e impuesto, y falta confirmar demanda y financiamiento.","Sí, si la recuperación simple es menor a 4 años."], c:2, f:["Incorrecto. El VPN depende de supuestos que todavía no están confirmados.","Incorrecto. La TIR puede calcularse aquí, porque el proyecto tiene un cambio de signo en sus flujos.","CORRECTO. La conclusión es condicional: depende de supuestos y de información que falta.","Incorrecto. Una regla de recuperación no reemplaza el análisis de supuestos."], g:"Un criterio favorable es información para decidir, no una orden."},
+    {t:"[Teórica] El índice de rentabilidad (IP) del horno es 1,34. ¿Qué significa?", o:["El proyecto obtiene 34 % de utilidad neta sobre sus ventas.","El horno cuesta 1,34 veces más que sus ventas del año 1.","El VPN es de $1,34 por cada mil dólares invertidos.","Por cada dólar invertido, el proyecto devuelve $1,34 en valor de hoy."], c:3, f:["Incorrecto. Eso es un margen sobre ventas, no el IP.","Incorrecto. El IP compara el valor de hoy de los flujos futuros con la inversión.","Incorrecto. El IP es un cociente, no un monto de VPN.","CORRECTO. $16.102,87 ÷ $12.000,00 = 1,34."], g:"El IP es un cociente entre el valor de hoy de los flujos y la inversión."},
+    {t:"[Análisis] Si las ventas caen 10 % cada año (costos iguales), el VPN pasa de $4.102,87 a −$4.880,81. ¿Qué indica?", o:["Con 10 % menos de ventas, el proyecto deja de crear valor a la tasa del 10 %.","El VPN baja exactamente 10 %.","El VPN no cambia, porque los costos se mantienen.","El VPN sube, porque el proyecto vende menos."], c:0, f:["CORRECTO. El signo del VPN cambia: el proyecto deja de crear valor a esa tasa.","Incorrecto. La caída es de más de $8.900,00, no proporcional al 10 %.","Incorrecto. Las ventas son la variable que cambia y por eso el VPN cambia.","Incorrecto. Vender menos reduce los flujos y, con ellos, el VPN."], g:"La sensibilidad muestra qué tan frágil es el resultado ante un supuesto."},
+    {t:"[Análisis] Con una caída de ventas de 5 %, el VPN es −$388,97. ¿Cuál es la conclusión más correcta?", o:["El VPN sigue positivo, porque la caída es pequeña.","El VPN queda igual que en el caso base, $4.102,87.","El VPN se vuelve negativo, con −$388,97; el resultado es sensible a las ventas.","La caída no afecta al VPN, porque el VPN solo depende de la inversión."], c:2, f:["Incorrecto. Con −$388,97 el VPN ya es negativo.","Incorrecto. Las ventas cambian los flujos y, con ellos, el VPN.","CORRECTO. Una caída moderada cambia el signo del VPN.","Incorrecto. El VPN depende de todos los flujos, no solo de la inversión."], g:"El punto de equilibrio financiero está en una caída de 4,57 %."},
+    {t:"[Teórica] ¿Por qué la depreciación de $2.400,00 no se trata como salida de caja cada año, aunque reduce la utilidad?", o:["Porque es un pago al banco por el préstamo.","Porque es un gasto contable que reparte el costo del horno; el dinero salió en el año 0 y la depreciación solo reduce el impuesto.","Porque aumenta las ventas del año.","Porque se resta dos veces del flujo."], c:1, f:["Incorrecto. El préstamo no está en el flujo del proyecto.","CORRECTO. La depreciación reparte un costo ya pagado; su efecto en caja es el ahorro de impuesto.","Incorrecto. La depreciación no es un ingreso ni afecta las ventas.","Incorrecto. Se resta una vez para calcular la utilidad y luego se suma para llegar al flujo."], g:"La depreciación es contable: reduce la utilidad, pero no vuelve a salir dinero de caja."},
+    {t:"[Análisis] El flujo del proyecto del año 2 es $5.208,00, aunque la utilidad neta es $2.808,00. ¿Por qué difieren?", o:["Porque el flujo no descuenta ningún costo.","Porque el flujo le suma el impuesto.","Porque el flujo incluye el préstamo de $12.000,00.","Porque la depreciación de $2.400,00 no salió de caja y se suma de nuevo."], c:3, f:["Incorrecto. Los costos sí están restados en el flujo.","Incorrecto. El impuesto ya se restó para calcular la utilidad; no se vuelve a sumar.","Incorrecto. El préstamo no entra en el flujo del proyecto.","CORRECTO. $2.808,00 + $2.400,00 = $5.208,00."], g:"Del flujo se elimina el gasto que no salió de caja."},
+    {t:"[Teórica] La TIR del horno es 18,98 %. ¿Qué significa en relación con la tasa de 10 %?", o:["Es la tasa que hace el VPN igual a cero; como supera el 10 %, a 10 % el VPN es positivo.","El horno rinde 18,98 % en efectivo cada año.","Solo es válida si la tasa de descuento es 18,98 %.","Es el impuesto aplicado al horno."], c:0, f:["CORRECTO. A una tasa menor que la TIR, el VPN es positivo.","Incorrecto. La TIR no es un flujo anual; es la tasa que anula el VPN.","Incorrecto. La TIR se calcula con los flujos y no depende de la tasa de descuento elegida.","Incorrecto. El impuesto del caso es 22 %."], g:"La TIR compara la rentabilidad del proyecto con la tasa exigida."},
+    {t:"[Análisis] Un estudiante afirma: «La utilidad neta de 2025 fue de $7.000,00, así que el horno dará $7.000,00 de caja cada año». ¿Qué le responderías?", o:["Correcto, porque la utilidad es lo que entra a caja.","Correcto, si el horno se financia con un préstamo.","Incorrecto: la utilidad no es efectivo, y los flujos del horno son otros; el año 1 es −$2.000,00.","Incorrecto, porque el horno no tendría ventas en ningún año."], c:2, f:["Incorrecto. La utilidad es una medida contable; la caja puede ser distinta.","Incorrecto. El financiamiento no cambia los flujos del proyecto.","CORRECTO. Utilidad y efectivo no son lo mismo, y el año 1 del horno es negativo.","Incorrecto. El caso contempla ventas adicionales de $20.000,00 en el año 1."], g:"Utilidad y efectivo no son equivalentes; cada uno responde una pregunta distinta."},
+    {t:"[Análisis] ¿Cuál es la respuesta guía más completa sobre si basta con VPN, TIR y recuperación para decidir la compra del horno?", o:["Sí: si los criterios coinciden, la decisión está lista.","No: los criterios dependen de supuestos de ventas, costos e impuesto; falta confirmar demanda, financiamiento y qué pasa si las ventas caen.","No: el VPN no sirve para proyectos con inversión inicial.","Sí, con un IP mayor que 1 basta."], c:1, f:["Incorrecto. Coincidir en los números no confirma los supuestos.","CORRECTO. Los criterios muestran la rentabilidad con supuestos; la decisión necesita información adicional.","Incorrecto. El VPN es justamente el criterio pensado para proyectos con inversión inicial.","Incorrecto. El IP resume la relación entre valor y costo, pero no resuelve los supuestos."], g:"Los criterios informan; la decisión requiere confirmar supuestos y financiamiento."}
+  ],
+  e2: [
+    {t:"[Teórica] Andrea compra una acción a $50,00, la vende a $55,00 y recibe $2,00 de dividendo. ¿Cuál es el rendimiento total?", o:["10,00 %.","14,00 %.","4,00 %.","2,00 %."], c:1, f:["Incorrecto. Eso solo considera la ganancia de precio; falta el dividendo.","CORRECTO. ($5,00 + $2,00) ÷ $50,00 = 14 %.","Incorrecto. Es solo el dividendo sobre la inversión; falta la ganancia de precio.","Incorrecto. Ese es el dividendo en dólares, no el porcentaje sobre la inversión."], g:"El rendimiento total suma la ganancia de precio y los ingresos recibidos."},
+    {t:"[Análisis] Según la Tabla 6, en 1928 las acciones con dividendos rindieron 43,81 % y los T-bills 3,08 %. ¿Cuál es la prima de acciones frente a T-bills?", o:["43,81 %.","3,08 %.","46,89 %.","40,73 %."], c:3, f:["Incorrecto. Es el rendimiento de las acciones, no la prima.","Incorrecto. Es el rendimiento de los T-bills.","Incorrecto. Es la suma de los dos rendimientos; la prima es una resta.","CORRECTO. 43,81 % − 3,08 % = 40,73 %."], g:"La prima se calcula restando el rendimiento seguro del mismo año."},
+    {t:"[Análisis] En la Tabla 6, $100 invertidos en acciones valían $143,81 al cierre de 1928 y $131,88 al cierre de 1929. ¿Qué indica el segundo valor?", o:["Que tras dos años $100 valen $131,88, con la caída de 1929 incluida.","Que el rendimiento de 1929 fue de 31,88 %.","Que 1929 fue un año de alza de 131,88 %.","Que la inflación de los dos años fue 131,88 %."], c:0, f:["CORRECTO. El valor acumulado incorpora los dos años de rendimientos.","Incorrecto. El rendimiento de 1929 es −8,30 %: 131,88 ÷ 143,81 − 1.","Incorrecto. $131,88 es un valor acumulado en dólares, no un rendimiento.","Incorrecto. La tabla no mide la inflación en ese valor."], g:"El valor de $100 al cierre de cada año resume lo acumulado hasta esa fecha."},
+    {t:"[Teórica] ¿Qué es un registro histórico de rendimientos?", o:["Una predicción de rendimientos futuros.","Una lista de precios de un solo día.","Una serie de rendimientos observados, con fecha, unidad y fuente.","Un promedio sin datos de respaldo."], c:2, f:["Incorrecto. Describe lo ocurrido; no predice.","Incorrecto. Un registro histórico recoge varios años.","CORRECTO. La fecha, la unidad y la fuente permiten verificar el dato.","Incorrecto. Los promedios se calculan a partir de datos observados."], g:"Un registro histórico describe el pasado con datos verificables."},
+    {t:"[Teórica] ¿Por qué el rendimiento de 43,81 % de 1928 incluye los dividendos?", o:["Porque el rendimiento total suma la variación del índice y los dividendos recibidos.","Porque los dividendos reemplazan el precio del índice.","Porque ese rendimiento corresponde a los bonos.","Porque los dividendos son impuestos que se descuentan."], c:0, f:["CORRECTO. El inversionista recibe el cambio de precio y los dividendos.","Incorrecto. Los dividendos se suman a la variación del precio; no la reemplazan.","Incorrecto. La columna del S&P 500 corresponde a acciones.","Incorrecto. Los dividendos son ingresos del inversionista, no impuestos."], g:"Dejar los dividendos afuera subestima lo que ganó el inversionista."},
+    {t:"[Teórica] ¿Qué diferencia hay entre rendimiento nominal y rendimiento real?", o:["El nominal descuenta la inflación; el real no.","El real descuenta la inflación del nominal; el nominal no lo hace.","Son iguales en bonos, aunque cambie la inflación.","El real siempre es mayor que el nominal."], c:1, f:["Incorrecto. Es al revés.","CORRECTO. El real ajusta el nominal por la inflación.","Incorrecto. La inflación afecta también el rendimiento real de los bonos.","Incorrecto. Con inflación positiva, el real suele ser menor que el nominal."], g:"El rendimiento real muestra cuánto poder de compra gana el inversionista."},
+    {t:"[Análisis] En 1929 los T-bonds rindieron 4,20 % y los T-bills 3,16 %. ¿Qué indica este dato?", o:["Que los bonos perdieron dinero en ese año.","Que las letras del Tesoro rindieron más que los bonos.","Que hubo empate entre ambos instrumentos.","Que los bonos a 10 años superaron a las letras a 3 meses ese año, y que el orden puede cambiar de un año a otro."], c:3, f:["Incorrecto. Un rendimiento de +4,20 % es una ganancia.","Incorrecto. 3,16 % es menor que 4,20 %.","Incorrecto. Los dos rendimientos son distintos.","CORRECTO. El orden entre instrumentos cambia según el año."], g:"Comparar un solo año puede dar una imagen engañosa del orden entre activos."},
+    {t:"[Teórica] ¿Por qué no conviene evaluar un mercado con un solo año?", o:["Porque un año siempre indica el rendimiento futuro.","Porque los rendimientos de un año no se pueden medir.","Porque los rendimientos varían mucho de un año a otro, y un solo año puede no representar el conjunto.","Porque los bonos no tienen rendimiento anual."], c:2, f:["Incorrecto. El pasado no garantiza el futuro.","Incorrecto. Sí se miden; lo que falta es una visión más amplia.","CORRECTO. La variabilidad hace que un año sea insuficiente.","Incorrecto. Los bonos también tienen rendimientos anuales."], g:"La variabilidad obliga a mirar una serie, no un solo dato."},
+    {t:"[Teórica] Según la Tabla 6, ¿cuál fue el rendimiento de las acciones con dividendos en 1929?", o:["8,30 %.","−8,30 %.","4,20 %.","−11,46 %."], c:1, f:["Incorrecto. Falta el signo: fue una caída.","CORRECTO. Las acciones cayeron 8,30 % en 1929.","Incorrecto. Ese es el rendimiento de los T-bonds en 1929.","Incorrecto. Es la prima de acciones frente a T-bills, no el rendimiento de las acciones."], g:"El signo indica si el rendimiento fue ganancia o pérdida."},
+    {t:"[Teórica] ¿Qué puede decir y qué no puede decir un registro histórico?", o:["Describe lo ocurrido, pero no garantiza el rendimiento futuro.","Garantiza que el mercado seguirá igual.","Es un precio de compra.","Solo sirve para bonos."], c:0, f:["CORRECTO. Describe el pasado; no asegura la repetición.","Incorrecto. Ningún registro asegura la repetición.","Incorrecto. El registro describe rendimientos, no precios de compra.","Incorrecto. Sirve también para acciones y otros activos."], g:"Un registro sirve para describir y comparar, no para garantizar."},
+    {t:"[Análisis] Un estudiante dice: «Como las acciones rindieron 43,81 % en 1928, siempre rendirán más de 40 %». ¿Qué respuesta es correcta?", o:["Es correcto, porque es un patrón.","Es correcto si la inflación baja.","Es incorrecto solo por la fecha del dato.","Es incorrecto: un año no garantiza nada, y en 1929 las acciones cayeron 8,30 %."], c:3, f:["Incorrecto. Un solo año no forma un patrón.","Incorrecto. La inflación no convierte un año aislado en una garantía.","Incorrecto. El problema es la generalización, no solo la fecha.","CORRECTO. La tabla muestra que el año siguiente fue negativo."], g:"Generalizar desde un solo año es un error de razonamiento."},
+    {t:"[Teórica] ¿Qué debe incluir una cifra histórica cuando la citas?", o:["Solo el número.","Solo el nombre del autor.","Fecha, unidad y fuente.","Solo un color que la resalte."], c:2, f:["Incorrecto. Sin fecha, unidad ni fuente no puede verificarse.","Incorrecto. Falta la fecha, la unidad y la fuente completa.","CORRECTO. Así otra persona puede verificar el dato.","Incorrecto. El color no aporta información verificable."], g:"Una cifra sin fecha, unidad y fuente no se puede verificar."},
+    {t:"[Teórica] ¿Por qué el S&P 500 sirve como registro del mercado de acciones?", o:["Porque lo elige un solo inversionista para su propia cartera.","Porque reúne a 500 grandes empresas estadounidenses y permite medir el comportamiento agregado del grupo.","Porque cotiza en el mercado de bonos.","Porque es el promedio de los precios de una sola tienda."], c:1, f:["Incorrecto. Es un índice de mercado, no la cartera de una persona.","CORRECTO. Un índice resume el conjunto de empresas que lo forman.","Incorrecto. El S&P 500 es un índice de acciones.","Incorrecto. No se refiere a una tienda."], g:"Un índice resume el comportamiento de un grupo de empresas."},
+    {t:"[Teórica] ¿Qué convierte una serie de precios en una serie de rendimientos?", o:["Calcular la variación de cada año, incluyendo los dividendos si corresponde.","Sumar todos los precios.","Multiplicar cada precio por 100.","Ignorar los dividendos."], c:0, f:["CORRECTO. El rendimiento mide la variación del periodo frente a su inicio.","Incorrecto. Sumar precios no mide la variación.","Incorrecto. Cambiar la escala no produce un rendimiento.","Incorrecto. Si se ignoran los dividendos, el rendimiento queda subestimado."], g:"El rendimiento compara lo que se tenía al inicio con lo que se tiene al final."},
+    {t:"[Análisis] Un socio propone decidir una inversión en acciones solo con el año 1928. ¿Qué falta para una conclusión sólida?", o:["Nada: un año basta.","Solo el precio de la acción de hoy.","Una serie más larga, verificada, con fecha, unidad y fuente, además de considerar el riesgo y el horizonte.","Solo el valor nominal de la acción."], c:2, f:["Incorrecto. Un año no basta para evaluar la variabilidad.","Incorrecto. El precio actual no reemplaza una serie histórica.","CORRECTO. La conclusión necesita historia suficiente, fuente y el contexto de riesgo y plazo.","Incorrecto. El valor nominal no describe el rendimiento histórico."], g:"Una conclusión sólida necesita historia suficiente y condiciones explícitas."}
+  ],
+  e3: [
+    {t:"[Teórica] ¿Qué mide el promedio aritmético de una serie de rendimientos?", o:["El rendimiento constante que deja el mismo valor final que la serie real.","El rendimiento del mejor año de la serie.","La inflación promedio del periodo.","La suma de los rendimientos dividida entre el número de años, sin considerar la reinversión."], c:3, f:["Incorrecto. Esa es la definición del promedio geométrico.","Incorrecto. Es el máximo, no un promedio.","Incorrecto. No se calcula a partir de la inflación.","CORRECTO. El aritmético no considera la reinversión de cada año."], g:"El aritmético describe el rendimiento típico de un año."},
+    {t:"[Teórica] ¿Qué mide el promedio geométrico de una serie de rendimientos?", o:["El rendimiento anual constante que, compuesto, da el mismo valor final que la serie real.","La suma de los rendimientos dividida entre el número de años.","El rendimiento del peor año.","La mediana de la serie."], c:0, f:["CORRECTO. Refleja el crecimiento compuesto del dinero.","Incorrecto. Esa es la definición del promedio aritmético.","Incorrecto. Es el mínimo, no un promedio.","Incorrecto. La mediana es el valor central de los datos, no el crecimiento compuesto."], g:"El geométrico describe lo que realmente creció el capital con reinversión."},
+    {t:"[Análisis] ¿Cuál es el promedio aritmético de 43,81 % y −8,30 %?", o:["14,84 %.","17,76 % (17,755 %).","35,51 %.","40,73 %."], c:1, f:["Incorrecto. Ese es el promedio geométrico.","CORRECTO. (43,81 − 8,30) ÷ 2 = 17,755 %.","Incorrecto. Es la suma sin dividir entre 2.","Incorrecto. Es la prima frente a T-bills de 1928."], g:"El aritmético es la suma de los rendimientos dividida entre el número de años."},
+    {t:"[Análisis] ¿Cuál es el promedio geométrico de 43,81 % y −8,30 %?", o:["17,76 %.","40,73 %.","14,84 %.","8,30 %."], c:2, f:["Incorrecto. Ese es el promedio aritmético.","Incorrecto. Es la prima de 1928, no un promedio de rendimientos.","CORRECTO. √(1,4381 × 0,9170) − 1 = 14,84 %.","Incorrecto. Es solo el valor absoluto del rendimiento de 1929."], g:"Para el geométrico se multiplican los factores de crecimiento y se saca la raíz."},
+    {t:"[Análisis] ¿Por qué el promedio geométrico (14,84 %) es menor que el aritmético (17,76 %)?", o:["Porque la inflación lo reduce.","Porque en 1929 hubo menos dividendos.","Porque el geométrico usa la inversión inicial y el aritmético la final.","Porque la serie varía, y la caída de un año pesa sobre la base de la subida siguiente."], c:3, f:["Incorrecto. La inflación no explica esta diferencia.","Incorrecto. Esa no es la razón matemática de la diferencia.","Incorrecto. Ninguno de los dos usa esas bases.","CORRECTO. La variación hace que los promedios se separen."], g:"Mientras más varía la serie, más se separan el aritmético y el geométrico."},
+    {t:"[Análisis] Serie hipotética: +20 %, −10 %, +30 % y −20 %. ¿Cuál es el promedio aritmético?", o:["5,00 %.","2,95 %.","20,00 %.","7,50 %."], c:0, f:["CORRECTO. (20 − 10 + 30 − 20) ÷ 4 = 5 %.","Incorrecto. Ese es el promedio geométrico.","Incorrecto. Es solo el primer año.","Incorrecto. No corresponde a la suma de los cuatro rendimientos dividida entre 4."], g:"El aritmético suma los cuatro rendimientos y divide entre cuatro."},
+    {t:"[Análisis] En la misma serie hipotética, ¿cuál es el promedio geométrico?", o:["5,00 %.","2,95 %.","3,50 %.","1,12 %."], c:1, f:["Incorrecto. Ese es el promedio aritmético.","CORRECTO. 1,20 × 0,90 × 1,30 × 0,80 = 1,1232; la raíz cuarta es 1,02947.","Incorrecto. No corresponde a la multiplicación de los factores de crecimiento.","Incorrecto. No proviene de la raíz cuarta del producto de los factores."], g:"Los factores de crecimiento se multiplican antes de sacar la raíz."},
+    {t:"[Análisis] Un inversionista quiere saber cuánto creció en promedio cada año su capital, que pasó de $100,00 a $112,32 en cuatro años con reinversión. ¿Qué promedio debe usar?", o:["El aritmético, porque suma los rendimientos anuales.","El máximo anual, porque es el rendimiento más alto.","El geométrico, porque reproduce el crecimiento compuesto del capital.","Ninguno: no se puede medir sin datos de precios."], c:2, f:["Incorrecto. El aritmético no reproduce el valor final con reinversión.","Incorrecto. El máximo no describe el crecimiento compuesto.","CORRECTO. Con el geométrico, $100 crecen hasta $112,32 en cuatro años.","Incorrecto. Con el valor inicial y final sí se puede calcular."], g:"Cuando interesa el crecimiento real con reinversión, se usa el geométrico."},
+    {t:"[Teórica] ¿Qué es la prima por riesgo de un año?", o:["El rendimiento de las acciones menos el de las letras del Tesoro, en el mismo año.","La suma de los rendimientos de acciones y bonos.","El dividendo menos el precio de la acción.","La inflación por riesgo de la inversión."], c:0, f:["CORRECTO. Compara la inversión arriesgada con la segura en el mismo año.","Incorrecto. Sumar no mide la diferencia de riesgo.","Incorrecto. No es una medida de riesgo de ese tipo.","Incorrecto. La prima compara rendimientos, no inflación."], g:"La prima mide cuánto más (o menos) rindió lo arriesgado frente a lo seguro."},
+    {t:"[Análisis] En 1929, la prima de acciones frente a T-bills fue −11,46 puntos porcentuales. ¿Qué significa?", o:["Que los bonos rindieron −11,46 % ese año.","Que las acciones rindieron menos que las letras del Tesoro, en 11,46 puntos porcentuales.","Que la inflación de 1929 fue 11,46 %.","Que las acciones rindieron el doble que las letras."], c:1, f:["Incorrecto. La prima compara acciones con letras, no bonos.","CORRECTO. −8,30 % − 3,16 % = −11,46 puntos.","Incorrecto. La prima no mide la inflación.","Incorrecto. Las acciones rindieron −8,30 %, no el doble de un rendimiento positivo."], g:"Una prima negativa indica que lo arriesgado rindió menos que lo seguro."},
+    {t:"[Teórica] ¿Qué valor tendría $100 invertidos en acciones al cierre de 1929, según el registro?", o:["$143,81","$140,73","$131,88","$100,00"], c:2, f:["Incorrecto. Ese es el valor al cierre de 1928.","Incorrecto. No corresponde a ningún dato del registro.","CORRECTO. $143,81 × 0,917 = $131,88.","Incorrecto. Ignora los dos años de rendimientos."], g:"El valor acumulado aplica los rendimientos de cada año sobre el saldo anterior."},
+    {t:"[Análisis] Un profesor usa el promedio aritmético de 17,76 % para decir: «Tu inversión crece 17,76 % al año». ¿Qué observación es correcta?", o:["Es correcto, porque ese es el promedio.","Es correcto si el año 1928 se repite.","Es incorrecto solo por redondeo.","Es engañoso: con esa serie, el crecimiento compuesto real fue de 14,84 % al año."], c:3, f:["Incorrecto. El aritmético describe un año típico, no el crecimiento compuesto.","Incorrecto. Aun si un año se repitiera, la serie seguiría variando.","Incorrecto. La diferencia es de concepto, no de redondeo.","CORRECTO. El geométrico (14,84 %) reproduce el valor real de $131,88."], g:"Usar el aritmético para decir cuánto crece el dinero puede engañar."},
+    {t:"[Análisis] ¿Por qué el promedio aritmético puede sobreestimar el crecimiento de una serie volátil?", o:["Porque no considera la reinversión: un −50 % seguido de +50 % promedia 0 %, pero pierde 25 %.","Porque suma los dividendos dos veces.","Porque usa la inflación como base.","Porque no existe un promedio para series volátiles."], c:0, f:["CORRECTO. El aritmético ignora que cada caída reduce la base de la subida siguiente.","Incorrecto. El problema no es la suma de dividendos.","Incorrecto. El aritmético no usa inflación.","Incorrecto. Existen promedios; el problema es cuál usar."], g:"La reinversión explica por qué el aritmético sobreestima el crecimiento real."},
+    {t:"[Análisis] Con −50 % y +50 %, ¿cuál es el promedio aritmético y cuál el geométrico?", o:["0 % y 0 %.","0,00 % aritmético y −13,40 % geométrico.","−25 % y −12,5 %.","50 % y 25 %."], c:1, f:["Incorrecto. El geométrico no es cero, porque el dinero perdió valor.","CORRECTO. √(0,50 × 1,50) − 1 = −13,40 % anual.","Incorrecto. Esos valores no resultan de los factores de la serie.","Incorrecto. La serie tiene una caída, así que el promedio no puede ser positivo."], g:"El geométrico refleja la pérdida real; el aritmético la oculta."},
+    {t:"[Análisis] ¿Qué falta para usar un rendimiento promedio como base de una decisión?", o:["Nada: el promedio basta.","El precio de la acción de hoy.","Una serie amplia y verificada, con fecha, unidad y fuente, y considerar el riesgo y el horizonte de la inversión.","El número de empleados de la empresa."], c:2, f:["Incorrecto. Un promedio no reemplaza el riesgo ni el horizonte.","Incorrecto. Con ese dato no se completa el análisis histórico.","CORRECTO. La decisión necesita historia verificada y condiciones de riesgo y plazo.","Incorrecto. No se relaciona con el rendimiento de la inversión."], g:"Un promedio histórico responde al pasado; decidir exige supuestos explícitos."}
+  ]
+};
+
+/* ============ MOTOR DE CUESTIONARIOS ============ */
+const estado = { e1:[], e2:[], e3:[] };
+const letras = ["a","b","c","d"];
+
+function construirQuiz(id){
+  const cont = document.getElementById("quiz-"+id);
+  const lista = BANCO[id];
+  cont.innerHTML = "";
+  lista.forEach((q, i) => {
+    const fs = document.createElement("fieldset");
+    const lg = document.createElement("legend");
+    lg.textContent = (i+1) + ". " + q.t;
+    fs.appendChild(lg);
+    const op = document.createElement("div");
+    op.className = "opciones";
+    q.o.forEach((texto, k) => {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.setAttribute("aria-pressed", "false");
+      b.textContent = letras[k] + ") " + texto;
+      b.addEventListener("click", () => elegir(id, i, k));
+      op.appendChild(b);
+    });
+    fs.appendChild(op);
+    const fb = document.createElement("div");
+    fb.className = "fb";
+    fb.id = id+"-fb-"+i;
+    fb.hidden = true;
+    fs.appendChild(fb);
+    cont.appendChild(fs);
+  });
+  actualizarMarcador(id);
+}
+
+function elegir(id, i, k){
+  const q = BANCO[id][i];
+  estado[id][i] = k;
+  const fs = document.getElementById("quiz-"+id).children[i];
+  const botones = fs.querySelectorAll(".opciones button");
+  botones.forEach((b, j) => b.setAttribute("aria-pressed", j === k ? "true" : "false"));
+  const fb = document.getElementById(id+"-fb-"+i);
+  fb.hidden = false;
+  fb.className = "fb " + (k === q.c ? "ok" : "no");
+  fb.textContent = q.f[k] + " " + q.g;
+  actualizarMarcador(id);
+}
+
+function actualizarMarcador(id){
+  const total = BANCO[id].length;
+  const respondidas = estado[id].filter(v => v !== undefined).length;
+  const aciertos = BANCO[id].reduce((n, q, i) => n + (estado[id][i] === q.c ? 1 : 0), 0);
+  const pend = total - respondidas;
+  const prog = Math.round(respondidas / total * 100);
+  document.getElementById("mk-"+id).textContent =
+    "Pendientes: " + pend + " · Aciertos: " + aciertos + " · Progreso: " + prog + " %";
+}
+
+function verResultado(id){
+  const total = BANCO[id].length;
+  const respondidas = estado[id].filter(v => v !== undefined).length;
+  const aciertos = BANCO[id].reduce((n, q, i) => n + (estado[id][i] === q.c ? 1 : 0), 0);
+  const nota = (aciertos / total * 10).toFixed(1).replace(".", ",");
+  const pct = Math.round(aciertos / total * 100);
+  let txt = "<div class='marcador'>Resultado: " + aciertos + " de " + total + " aciertos · " + nota + " sobre 10 · " + pct + " %.";
+  if (respondidas < total) txt += " Te faltan " + (total - respondidas) + " preguntas por responder.";
+  txt += "</div>";
+  const errores = total - aciertos;
+  if (errores > 0 && respondidas === total) {
+    txt += "<div class='acciones'><button class='primario' data-acc='reintentar' data-q='"+id+"'>Intentar nuevamente</button></div>";
+  } else if (respondidas === total) {
+    txt += "<p>Respondiste todas sin errores.</p>";
+  }
+  txt += "<p class='nota'>Es práctica, no nota oficial. Reintentar no demuestra por sí solo transferencia.</p>";
+  document.getElementById("res-"+id).innerHTML = txt;
+}
+
+function reiniciar(id){
+  estado[id] = [];
+  construirQuiz(id);
+  document.getElementById("res-"+id).innerHTML = "";
+}
+
+/* ============ NAVEGACIÓN Y EVENTOS ============ */
+const tabs = document.querySelectorAll(".menu [role='tab']");
+function mostrar(p){
+  document.querySelectorAll("main > section").forEach(s => s.hidden = (s.id !== "p-"+p));
+  tabs.forEach(t => t.setAttribute("aria-selected", t.dataset.p === p ? "true" : "false"));
+  window.scrollTo({top:0, behavior:"auto"});
+}
+tabs.forEach(t => {
+  t.addEventListener("click", () => mostrar(t.dataset.p));
+  t.addEventListener("keydown", e => {
+    const arr = Array.from(tabs);
+    const idx = arr.indexOf(t);
+    if (e.key === "ArrowRight") { arr[(idx+1)%arr.length].focus(); arr[(idx+1)%arr.length].click(); }
+    if (e.key === "ArrowLeft") { const j=(idx-1+arr.length)%arr.length; arr[j].focus(); arr[j].click(); }
+  });
+});
+document.addEventListener("click", e => {
+  const b = e.target.closest("button[data-acc]");
+  if (!b) return;
+  const id = b.dataset.q, acc = b.dataset.acc;
+  if (acc === "ver") verResultado(id);
+  if (acc === "reiniciar") reiniciar(id);
+  if (acc === "reintentar") reiniciar(id);
+});
+
+["e1","e2","e3"].forEach(construirQuiz);
+</script>
+</body>
+</html>
